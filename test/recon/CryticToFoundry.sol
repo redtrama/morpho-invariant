@@ -16,6 +16,26 @@ contract CryticToFoundry is Test, TargetFunctions, FoundryAsserts {
 
     // forge test --match-test test_crytic -vvv
     function test_crytic() public {
-        // TODO: add failing property tests here for debugging
+        // Here we can test functions from TargetFunctions
+        // morpho_supply comes from there.
+        // Try to supply 1e18 assets and collateral
+        morpho_clamped_supply_asset(1e18);
+        morpho_clamped_supply_collateral(1e18);
+
+        oracle.setPrice(1e30);
+        // try to borrow less than we supplied just to be sure that the function works
+        morpho_borrow(1e6, 0, address(this), address(this));
+
+        // to Liquidate
+        // Set the price to zero
+        // oracle_setPrice(0);
+
+        // // Liquidate
+        // morpho_liquidate(address(this) , 1e6 , 0, hex"");
+
+morpho_repay(1e6, 0, address(this), hex"");
+
+
+
     }
 }

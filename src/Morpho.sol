@@ -423,7 +423,7 @@ contract Morpho is IMorphoStaticTyping {
         require(assets != 0, ErrorsLib.ZERO_ASSETS);
 
         emit EventsLib.FlashLoan(msg.sender, token, assets);
-
+        /// @mock ERC20 mocks
         IERC20(token).safeTransfer(msg.sender, assets);
 
         IMorphoFlashLoanCallback(msg.sender).onMorphoFlashLoan(assets, data);
@@ -485,6 +485,7 @@ contract Morpho is IMorphoStaticTyping {
         if (elapsed == 0) return;
 
         if (marketParams.irm != address(0)) {
+            ///@mock mock IRM
             uint256 borrowRate = IIrm(marketParams.irm).borrowRate(marketParams, market[id]);
             uint256 interest = market[id].totalBorrowAssets.wMulDown(borrowRate.wTaylorCompounded(elapsed));
             market[id].totalBorrowAssets += interest.toUint128();
@@ -515,6 +516,7 @@ contract Morpho is IMorphoStaticTyping {
     function _isHealthy(MarketParams memory marketParams, Id id, address borrower) internal view returns (bool) {
         if (position[id][borrower].borrowShares == 0) return true;
 
+        /// @mock create a mock Oracle and use a fixed price
         uint256 collateralPrice = IOracle(marketParams.oracle).price();
 
         return _isHealthy(marketParams, id, borrower, collateralPrice);
