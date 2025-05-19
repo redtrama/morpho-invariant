@@ -52,7 +52,7 @@
       "propertyTesting": {
         "enabled": true,
         "testPrefixes": [
-          "echidna_"
+          "invariant_"
         ]
       },
       "optimizationTesting": {
@@ -69,12 +69,12 @@
         "enableFFI": false
       },
       "skipAccountChecks": true,
-			"forkConfig": {
-				"forkModeEnabled": false,
-				"rpcUrl": "",
-				"rpcBlock": 1,
-				"poolSize": 20
-			}
+      "forkConfig": {
+        "forkModeEnabled": false,
+        "rpcUrl": "",
+        "rpcBlock": 1,
+        "poolSize": 20
+      }
     }
   },
   "compilation": {
@@ -83,16 +83,9 @@
       "target": ".",
       "solcVersion": "",
       "exportDirectory": "",
-      "args": [
-        "--foundry-compile-all"
-      ]
+      "args": []
     }
   },
-  "slither": {
-		"useSlither": true,
-		"cachePath": "slither_results.json",
-		"args": []
-	},
   "logging": {
     "level": "info",
     "logDirectory": ""
